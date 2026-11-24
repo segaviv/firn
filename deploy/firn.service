@@ -1,0 +1,17 @@
+[Unit]
+Description=Firn ski day planner (static app + snow report collector)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=%h/projs/ski_resort_suggestion
+ExecStart=/usr/bin/env node serve.mjs
+Environment=PORT=8642
+Environment=HOST=0.0.0.0
+Environment=COLLECT_MINUTES=60
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=default.target

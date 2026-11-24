@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Firn · Ski Day Planner</title>
+  <meta name="description" content="Where to ski this weekend from Zürich — weather, snow, lifts, commute, price and crowds, rated.">
+  <meta name="theme-color" content="#f5f3ee" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0b131a" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..650;1,9..144,400..600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./" aria-label="Firn home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32"><path d="M3 26 L12.5 9 L17 17 L20 12.5 L29 26 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 13.6 L12.5 9 L15 13.6 L13.6 12.8 L12.5 14 L11.3 12.8 Z" fill="currentColor"/></svg>
+        </span>
+        <span class="brand-word">Firn</span>
+        <span class="brand-tag">Ski days from Zürich</span>
+      </a>
+      <div class="seg" id="modeSeg" role="radiogroup" aria-label="Travel mode">
+        <button role="radio" data-mode="car" aria-checked="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 16v-3.5L6 8h12l2 4.5V16M4 16h16M4 16v2M20 16v2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="7.5" cy="13" r="1" fill="currentColor"/><circle cx="16.5" cy="13" r="1" fill="currentColor"/></svg>
+          Car
+        </button>
+        <button role="radio" data-mode="train" aria-checked="false">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="3.5" width="12" height="13" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6 10h12M9 20l1.5-3.5M15 20l-1.5-3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="9" cy="13.5" r="0.9" fill="currentColor"/><circle cx="15" cy="13.5" r="0.9" fill="currentColor"/></svg>
+          Train
+        </button>
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" id="refreshBtn" title="Refresh live data" aria-label="Refresh live data">
+          <svg viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="icon-btn" id="settingsBtn" title="Preferences" aria-label="Preferences">
+          <svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><circle cx="16" cy="7" r="2.2" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="10" cy="17" r="2.2" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="toolbar">
+      <div class="days" id="days" role="tablist" aria-label="Choose a day"></div>
+
+    </div>
+  </header>
+
+  <main class="layout">
+    <aside class="side">
+      <section class="verdict" id="verdict" aria-live="polite">
+        <div class="skeleton sk-kicker"></div>
+        <div class="skeleton sk-title"></div>
+        <div class="skeleton sk-line"></div>
+        <div class="skeleton sk-line short"></div>
+      </section>
+      <section class="notes" id="notes" aria-label="Worth knowing"></section>
+    </aside>
+
+    <section class="list" aria-label="All resorts">
+      <div class="list-head">
+        <h2 class="list-title">All resorts <span id="count" class="count"></span></h2>
+        <label class="sort">
+          <span>Sort</span>
+          <select id="sortSel">
+            <option value="score">Rating</option>
+            <option value="commute">Commute</option>
+            <option value="snow">Snow</option>
+            <option value="weather">Weather</option>
+            <option value="cost">Cost</option>
+            <option value="crowds">Fewest crowds</option>
+          </select>
+        </label>
+      </div>
+      <ol class="cards" id="cards"></ol>
+      <details class="closed-group" id="closedGroup" hidden>
+        <summary><span>Closed or not open yet</span> <span id="closedCount" class="count"></span></summary>
+        <ol class="cards compact" id="closedCards"></ol>
+      </details>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="foot-inner">
+      <p id="freshness" class="freshness"></p>
+      <p class="sources">
+        Weather <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a> ·
+        Snow &amp; lifts <a href="https://www.bergfex.com/schweiz/schneewerte/" target="_blank" rel="noopener">bergfex</a> ·
+        Trains <a href="https://transport.opendata.ch" target="_blank" rel="noopener">transport.opendata.ch</a> ·
+        Avalanches <a href="https://www.slf.ch" target="_blank" rel="noopener">SLF</a> ·
+        Routing <a href="https://project-osrm.org" target="_blank" rel="noopener">OSRM</a>
+      </p>
+      <p class="disclaimer">Prices and crowds are estimates: dynamic prices are modelled from demand, not read live. Check the resort before you go.</p>
+    </div>
+  </footer>
+
+  <dialog id="settings" class="sheet" aria-labelledby="settingsTitle">
+    <form method="dialog" class="sheet-inner" id="settingsForm">
+      <div class="sheet-head">
+        <h2 id="settingsTitle">Preferences</h2>
+        <button class="icon-btn" value="close" aria-label="Close">
+          <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+
+      <fieldset>
+        <legend>Travel</legend>
+        <label class="row"><span>SBB pass</span>
+          <select name="pass">
+            <option value="halbtax">Halbtax</option>
+            <option value="ga">GA</option>
+            <option value="none">None</option>
+          </select>
+        </label>
+        <label class="row"><span>People in the car</span>
+          <input type="number" name="occupants" min="1" max="7" step="1" inputmode="numeric">
+        </label>
+        <label class="row"><span>Max one-way commute</span>
+          <select name="maxCommute">
+            <option value="0">No limit</option>
+            <option value="90">1 h 30</option>
+            <option value="120">2 h</option>
+            <option value="150">2 h 30</option>
+            <option value="180">3 h</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>What matters to you <button type="button" class="link-btn" id="resetWeights">Reset</button></legend>
+        <div id="weights" class="weights"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>List</legend>
+        <label class="row switch"><span>Show resorts without a lift report</span>
+          <input type="checkbox" name="showUnknown">
+        </label>
+      </fieldset>
+      <p class="sheet-foot">Saved on this device.</p>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

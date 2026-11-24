@@ -1,0 +1,43 @@
+# Hosts Firn on GitHub Pages and refreshes the bergfex snow report on a schedule.
+# Settings → Pages → Source: "GitHub Actions".
+name: Deploy Firn
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    # every 2 hours, 05:00–21:00 Swiss time (UTC+1 in winter), November–April
+    - cron: '0 4-20/2 * 11,12,1,2,3,4 *'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Collect snow & lift reports
+        run: node collector/collect.mjs || echo "collector failed, deploying without fresh data"
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          cp -r index.html css js data icon.svg manifest.webmanifest sw.js _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4

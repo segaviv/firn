@@ -1,0 +1,1 @@
+{"type":"module","name":"firn","private":true,"scripts":{"collect":"node collector/collect.mjs","start":"node serve.mjs"}}
