@@ -1,6 +1,15 @@
 {
- "generatedAt": "2026-11-24T20:54:15.493Z",
- "source": "bergfex.com (data: MySwitzerland / resorts)",
+ "generatedAt": "2026-11-24T21:36:17.138Z",
+ "sources": {
+  "bergfex": {
+   "at": "2026-11-24T21:36:17.138Z",
+   "resorts": 19
+  },
+  "slf": {
+   "at": "2026-11-24T21:36:17.138Z",
+   "resorts": 20
+  }
+ },
  "resorts": {
   "flumserberg": {
    "valley": 20,
@@ -8,18 +17,38 @@
    "fresh": null,
    "liftsOpen": 0,
    "liftsTotal": 17,
-   "reportedAt": "2026-11-24 21:46:17",
-   "reportedLabel": "Today, 21:46",
+   "reportedAt": "2026-11-24 22:31:20",
+   "reportedLabel": "Today, 22:31",
    "snowCondition": "powder",
    "lastSnowfall": "2026-11-23",
    "operation": "closed",
    "hours": "08:00 - 16:30",
    "pisteCondition": "no info",
    "reportDate": "2026-11-24",
-   "url": "https://www.bergfex.com/flumserberg/schneebericht/"
+   "url": "https://www.bergfex.com/flumserberg/schneebericht/",
+   "slf": {
+    "code": "AMD2",
+    "label": "Bärenfall",
+    "elevation": 1610,
+    "distanceKm": 13.5,
+    "hs": 65,
+    "fresh72": 92,
+    "fresh24": 45,
+    "date": "2026-11-24"
+   }
   },
   "hoch-ybrig": {
-   "url": "https://www.bergfex.com/ybrig/schneebericht/"
+   "url": "https://www.bergfex.com/ybrig/schneebericht/",
+   "slf": {
+    "code": "YBR2",
+    "label": "Wanne",
+    "elevation": 1701,
+    "distanceKm": 1.2,
+    "hs": 58,
+    "fresh72": 76,
+    "fresh24": 35,
+    "date": "2026-11-24"
+   }
   },
   "stoos": {
    "valley": 50,
@@ -36,7 +65,17 @@
    "hours": "09:00 - 16:00",
    "pisteCondition": "closed",
    "reportDate": "2026-11-23",
-   "url": "https://www.bergfex.com/stoos/schneebericht/"
+   "url": "https://www.bergfex.com/stoos/schneebericht/",
+   "slf": {
+    "code": "MUO2",
+    "label": "Rupperslaui",
+    "elevation": 2083,
+    "distanceKm": 7.6,
+    "hs": 77,
+    "fresh72": 99,
+    "fresh24": 39,
+    "date": "2026-11-24"
+   }
   },
   "engelberg": {
    "valley": 15,
@@ -53,7 +92,17 @@
    "hours": "08:30 - 16:30",
    "pisteCondition": "good",
    "reportDate": "2026-11-24",
-   "url": "https://www.bergfex.com/engelberg/schneebericht/"
+   "url": "https://www.bergfex.com/engelberg/schneebericht/",
+   "slf": {
+    "code": "TIT2",
+    "label": "Titlisboden",
+    "elevation": 2149,
+    "distanceKm": 3.8,
+    "hs": 60,
+    "fresh72": 80,
+    "fresh24": 31,
+    "date": "2026-11-24"
+   }
   },
   "laax": {
    "valley": 10,
@@ -71,7 +120,17 @@
    "hours": "08:30 - 17:00",
    "pisteCondition": "good",
    "reportDate": "2026-11-24",
-   "url": "https://www.bergfex.com/laax/schneebericht/"
+   "url": "https://www.bergfex.com/laax/schneebericht/",
+   "slf": {
+    "code": "CMA2",
+    "label": "La Fuorcla",
+    "elevation": 2325,
+    "distanceKm": 5.2,
+    "hs": 76,
+    "fresh72": 96,
+    "fresh24": 35,
+    "date": "2026-11-24"
+   }
   },
   "davos": {
    "valley": 110,
@@ -88,10 +147,30 @@
    "operation": "every day",
    "hours": "08:15 - 16:00",
    "reportDate": "2026-11-24",
-   "url": "https://www.bergfex.com/davos-parsenn/schneebericht/"
+   "url": "https://www.bergfex.com/davos-parsenn/schneebericht/",
+   "slf": {
+    "code": "DAV6",
+    "label": "Luksch Alp",
+    "elevation": 2290,
+    "distanceKm": 5,
+    "hs": 52,
+    "fresh72": 61,
+    "fresh24": 26,
+    "date": "2026-11-24"
+   }
   },
   "lenzerheide": {
-   "url": "https://www.bergfex.com/arosa-lenzerheide/schneebericht/"
+   "url": "https://www.bergfex.com/arosa-lenzerheide/schneebericht/",
+   "slf": {
+    "code": "ROT3",
+    "label": "Plang Bi",
+    "elevation": 2495,
+    "distanceKm": 3.7,
+    "hs": 36,
+    "fresh72": 41,
+    "fresh24": 13,
+    "date": "2026-11-24"
+   }
   },
   "andermatt": {
    "valley": 18,
@@ -107,7 +186,17 @@
    "operation": "closed",
    "hours": "08:30 - 16:00",
    "reportDate": "2026-11-24",
-   "url": "https://www.bergfex.com/andermatt-oberalp-sedrun/schneebericht/"
+   "url": "https://www.bergfex.com/andermatt-oberalp-sedrun/schneebericht/",
+   "slf": {
+    "code": "GOS3",
+    "label": "Gütsch",
+    "elevation": 2209,
+    "distanceKm": 2.4,
+    "hs": 53,
+    "fresh72": 75,
+    "fresh24": 18,
+    "date": "2026-11-24"
+   }
   },
   "pizol": {
    "valley": 15,
@@ -123,7 +212,17 @@
    "operation": "closed",
    "pisteCondition": "end season",
    "reportDate": "2026-11-24",
-   "url": "https://www.bergfex.com/pizol/schneebericht/"
+   "url": "https://www.bergfex.com/pizol/schneebericht/",
+   "slf": {
+    "code": "TAM2",
+    "label": "Wildsee",
+    "elevation": 2468,
+    "distanceKm": 8.1,
+    "hs": 65,
+    "fresh72": 71,
+    "fresh24": 34,
+    "date": "2026-11-24"
+   }
   },
   "elm": {
    "valley": 0,
@@ -141,7 +240,17 @@
    "hours": "08:00 - 17:00",
    "pisteCondition": "no info",
    "reportDate": "2026-11-24",
-   "url": "https://www.bergfex.com/elm/schneebericht/"
+   "url": "https://www.bergfex.com/elm/schneebericht/",
+   "slf": {
+    "code": "ELM2",
+    "label": "Chüebodensee",
+    "elevation": 2058,
+    "distanceKm": 3.4,
+    "hs": 77,
+    "fresh72": 109,
+    "fresh24": 46,
+    "date": "2026-11-24"
+   }
   },
   "toggenburg": {
    "valley": 10,
@@ -158,7 +267,17 @@
    "hours": "08:00 - 17:00",
    "pisteCondition": "closed, partially fair",
    "reportDate": "2026-11-24",
-   "url": "https://www.bergfex.com/toggenburg-chaeserrugg/schneebericht/"
+   "url": "https://www.bergfex.com/toggenburg-chaeserrugg/schneebericht/",
+   "slf": {
+    "code": "AMD2",
+    "label": "Bärenfall",
+    "elevation": 1610,
+    "distanceKm": 12.6,
+    "hs": 65,
+    "fresh72": 92,
+    "fresh24": 45,
+    "date": "2026-11-24"
+   }
   },
   "melchsee": {
    "valley": 145,
@@ -175,13 +294,43 @@
    "operation": "closed",
    "pisteCondition": "closed",
    "reportDate": "2026-11-24",
-   "url": "https://www.bergfex.com/melchsee-frutt/schneebericht/"
+   "url": "https://www.bergfex.com/melchsee-frutt/schneebericht/",
+   "slf": {
+    "code": "TIT2",
+    "label": "Titlisboden",
+    "elevation": 2149,
+    "distanceKm": 9.9,
+    "hs": 60,
+    "fresh72": 80,
+    "fresh24": 31,
+    "date": "2026-11-24"
+   }
   },
   "hasliberg": {
-   "url": "https://www.bergfex.com/meiringen-hasliberg/schneebericht/"
+   "url": "https://www.bergfex.com/meiringen-hasliberg/schneebericht/",
+   "slf": {
+    "code": "SCB2",
+    "label": "Schönbüel",
+    "elevation": 1777,
+    "distanceKm": 8.6,
+    "hs": 80,
+    "fresh72": 98,
+    "fresh24": 33,
+    "date": "2026-11-24"
+   }
   },
   "wengen": {
-   "url": "https://www.bergfex.com/wengen/schneebericht/"
+   "url": "https://www.bergfex.com/wengen/schneebericht/",
+   "slf": {
+    "code": "FIR2",
+    "label": "Schmidigen-Bidmeren",
+    "elevation": 2111,
+    "distanceKm": 5,
+    "hs": 54,
+    "fresh72": 75,
+    "fresh24": 21,
+    "date": "2026-11-24"
+   }
   },
   "adelboden": {
    "valley": 2,
@@ -197,7 +346,29 @@
    "operation": "every day",
    "pisteCondition": "no info",
    "reportDate": "2026-11-24",
-   "url": "https://www.bergfex.com/adelboden/schneebericht/"
+   "url": "https://www.bergfex.com/adelboden/schneebericht/",
+   "slf": {
+    "code": "FAE2",
+    "label": "Färmel",
+    "elevation": 1971,
+    "distanceKm": 5.8,
+    "hs": 74,
+    "fresh72": 79,
+    "fresh24": 16,
+    "date": "2026-11-24"
+   }
+  },
+  "obersaxen": {
+   "slf": {
+    "code": "TUM2",
+    "label": "Val Miez",
+    "elevation": 2191,
+    "distanceKm": 6.9,
+    "hs": 88,
+    "fresh72": 119,
+    "fresh24": 41,
+    "date": "2026-11-24"
+   }
   },
   "soerenberg": {
    "valley": null,
@@ -211,7 +382,17 @@
    "snowCondition": "no info",
    "pisteCondition": "no info",
    "reportDate": "2026-11-24",
-   "url": "https://www.bergfex.com/soerenberg/schneebericht/"
+   "url": "https://www.bergfex.com/soerenberg/schneebericht/",
+   "slf": {
+    "code": "ROA2",
+    "label": "Rotschalp",
+    "elevation": 1875,
+    "distanceKm": 6.3,
+    "hs": 69,
+    "fresh72": 91,
+    "fresh24": 36,
+    "date": "2026-11-24"
+   }
   },
   "stmoritz": {
    "valley": 7,
@@ -227,7 +408,17 @@
    "operation": "every day",
    "hours": "07:45 - 17:00",
    "reportDate": "2026-11-24",
-   "url": "https://www.bergfex.com/st-moritz-corviglia/schneebericht/"
+   "url": "https://www.bergfex.com/st-moritz-corviglia/schneebericht/",
+   "slf": {
+    "code": "BEV2",
+    "label": "Valetta",
+    "elevation": 2512,
+    "distanceKm": 4.7,
+    "hs": 13,
+    "fresh72": 7,
+    "fresh24": 0,
+    "date": "2026-11-24"
+   }
   },
   "savognin": {
    "valley": 4,
@@ -241,7 +432,17 @@
    "lastSnowfall": "2026-11-24",
    "hours": "08:30 - 16:00",
    "reportDate": "2026-11-24",
-   "url": "https://www.bergfex.com/savognin/schneebericht/"
+   "url": "https://www.bergfex.com/savognin/schneebericht/",
+   "slf": {
+    "code": "PMA2",
+    "label": "Colms da Parsonz",
+    "elevation": 2429,
+    "distanceKm": 4.9,
+    "hs": 21,
+    "fresh72": 15,
+    "fresh24": 4,
+    "date": "2026-11-24"
+   }
   },
   "braunwald": {
    "valley": null,
@@ -256,7 +457,17 @@
    "hours": "08:30 - 16:30",
    "pisteCondition": "very good",
    "reportDate": "2026-11-24",
-   "url": "https://www.bergfex.com/braunwald/schneebericht/"
+   "url": "https://www.bergfex.com/braunwald/schneebericht/",
+   "slf": {
+    "code": "ORT2",
+    "label": "Ortstock Matt",
+    "elevation": 1824,
+    "distanceKm": 3.9,
+    "hs": 90,
+    "fresh72": 129,
+    "fresh24": 51,
+    "date": "2026-11-24"
+   }
   }
  },
  "errors": []

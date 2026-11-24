@@ -140,7 +140,11 @@ export function scoreResort(r, ctx) {
   // ----- Snow -----
   {
     const reasons = [];
+    const slf = cond?.slf;
     let depth = rep.depth;
+    let depthSrc = 'report';
+    // Measured SLF station depth fills in when the resort report is missing or older than 3 days.
+    if (slf?.hs != null && (depth == null || (rep.age != null && rep.age > 3))) { depth = slf.hs; depthSrc = 'slf'; }
     let projected = 0;
     if (depth != null && s && weather?.top?.time) {
       // add forecast snow between the report and the ski morning
@@ -149,14 +153,20 @@ export function scoreResort(r, ctx) {
       depth += projected;
     }
     const depthS = depth == null ? 0.4 : piecewise(depth, [[0, 0], [20, 0.2], [50, 0.55], [100, 0.85], [160, 1]]);
-    const fresh = Math.max(s?.fresh72 ?? 0, lead === 0 ? cond?.fresh ?? 0 : 0);
+    // Measured new snow counts fully today/tomorrow, then fades as it settles and gets tracked out.
+    const measured = Math.max(cond?.fresh ?? 0, slf?.fresh72 ?? 0);
+    const decay = lead <= 1 ? 1 : lead <= 3 ? 0.5 : lead <= 5 ? 0.3 : 0;
+    const forecastFresh = s?.fresh72 ?? 0;
+    const fresh = Math.max(forecastFresh, measured * decay);
     const freshS = piecewise(fresh, [[0, 0], [5, 0.3], [15, 0.7], [30, 1]]);
     let adj = 0;
     const condText = (cond?.snowCondition || '').toLowerCase();
     if (depth == null) reasons.push(rep.staleSnow ? 'Snow report is from last season — base depth unknown' : 'No current base depth reported');
-    else reasons.push(`${Math.round(depth)} cm base${projected > 3 ? ` (incl. ~${Math.round(projected)} cm still to fall)` : ''}`);
-    if (fresh >= 1) reasons.push(`${Math.round(fresh)} cm fresh in the 72 h before`);
-    else reasons.push('No fresh snow in the last 3 days');
+    else reasons.push(`${Math.round(depth)} cm base${depthSrc === 'slf' ? ' (measured nearby)' : ''}${projected > 3 ? `, incl. ~${Math.round(projected)} cm still to fall` : ''}`);
+    if (slf?.hs != null) reasons.push(`SLF station ${slf.label} (${slf.elevation} m, ${slf.distanceKm} km away): ${slf.hs} cm, +${slf.fresh72} cm in 3 days`);
+    if (forecastFresh >= 1) reasons.push(`${Math.round(forecastFresh)} cm fresh in the 72 h before${lead > 0 ? ' (forecast)' : ''}`);
+    else reasons.push(lead > 1 ? 'No new snow forecast in the 3 days before' : 'No fresh snow in the last 3 days');
+    if (lead > 1 && measured >= 10 && decay > 0) reasons.push(`+${Math.round(measured)} cm fell this week — settled and partly tracked out by then`);
     if (lead <= 1 && condText) {
       if (/powder/.test(condText)) { adj += 0.08; reasons.push('Reported: powder'); }
       if (/hard|icy|ice/.test(condText)) { adj -= 0.1; reasons.push('Reported: partly hard / icy'); }

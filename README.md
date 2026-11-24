@@ -24,7 +24,12 @@ Almost everything runs in the browser. These APIs allow direct browser access (C
 - **transport.opendata.ch**: live SBB connections
 - **SLF**: avalanche bulletin (CAAML JSON)
 
-The only thing that needs a server-side step is the **snow & lift report** (bergfex.com, which does not allow cross-origin requests). `collector/collect.mjs` scrapes it into `data/conditions.json`. Run it on a schedule, either on your own machine (`serve.mjs` does this) or in GitHub Actions. So there's no backend to maintain, just a cron-style job.
+Two sources need a server-side step, because they don't allow browser access. `collector/collect.mjs` gathers both into `data/conditions.json`:
+
+- **SLF IMIS stations** (open data): measured snow depth and new snow at the station nearest each ski area. Works from anywhere, including GitHub Actions.
+- **bergfex** snow & lift report: lifts open, piste and snow conditions, lift hours. bergfex blocks datacenter IPs such as GitHub's, so this part only works from your own machine.
+
+When one source fails, the collector keeps that source's last good data instead of wiping it.
 
 ## Run on your laptop (and open it from your phone over Tailscale)
 
@@ -48,7 +53,18 @@ loginctl enable-linger $USER   # keep running when logged out
 
 ## Host on GitHub Pages instead
 
-Push the repo to GitHub, then set **Settings → Pages → Source: GitHub Actions**. `.github/workflows/pages.yml` deploys on push and re-collects snow reports every 2 hours in winter.
+Push the repo to GitHub, then set **Settings → Pages → Source: GitHub Actions**. `.github/workflows/pages.yml` deploys on every push to `main`.
+
+Every GitHub run (each push, plus every 2 hours during the season) refreshes the SLF snow measurements. bergfex blocks GitHub's IPs, so the lift reports come from your laptop. A systemd user timer runs `deploy/push-conditions.sh` every 2 hours (06:15–20:15, Nov–Apr) and catches up after sleep. It collects, then commits and pushes `data/conditions.json` only when the resort reports actually changed. Each push redeploys the site.
+
+```bash
+mkdir -p ~/.config/systemd/user && cp deploy/firn-push.service deploy/firn-push.timer ~/.config/systemd/user/
+systemctl --user daemon-reload && systemctl --user enable --now firn-push.timer
+systemctl --user list-timers firn-push.timer      # next run
+journalctl --user -u firn-push -n 20              # last runs
+```
+
+If the laptop is off for days, the site still works: snow depth stays current via SLF, and the app labels the lift reports with their age. Weather, trains and avalanche data are always live in the browser.
 
 ## Customising
 

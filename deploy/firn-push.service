@@ -1,0 +1,8 @@
+[Unit]
+Description=Firn: collect lift & resort reports and push them to GitHub
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/projs/ski_resort_suggestion/deploy/push-conditions.sh

@@ -8,7 +8,7 @@
 // bergfex pages are not CORS-enabled, which is why this runs server-side
 // (on your machine via serve.mjs, or in GitHub Actions).
 
-import { writeFile, mkdir, rename } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, rename } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { RESORTS } from '../js/resorts.js';
@@ -121,43 +121,133 @@ function parseDetail(html) {
   return pairs;
 }
 
-async function main() {
-  const started = Date.now();
-  const result = { generatedAt: new Date().toISOString(), source: 'bergfex.com (data: MySwitzerland / resorts)', resorts: {}, errors: [] };
+// ---------- SLF IMIS stations (measured snow, open data) ----------
+const toRad = (d) => (d * Math.PI) / 180;
+function distKm(a, b) {
+  const dLat = toRad(b.lat - a.lat), dLon = toRad(b.lon - a.lon);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLon / 2) ** 2;
+  return 12742 * Math.asin(Math.sqrt(h));
+}
 
+async function getJSON(url) {
+  const res = await fetch(url, { headers: { 'User-Agent': 'firn-ski-planner (personal, non-commercial)' }, signal: AbortSignal.timeout(30000) });
+  if (!res.ok) throw new Error(`HTTP ${res.status} ${url}`);
+  return res.json();
+}
+
+// Picks the station that best represents the ski area: close by, and near the
+// upper-middle of the ski area's elevation range. Returns per-resort summaries.
+async function collectSlf() {
+  const [stations, daily] = await Promise.all([
+    getJSON('https://measurement-api.slf.ch/public/api/imis/stations'),
+    getJSON('https://measurement-api.slf.ch/public/api/imis/daily-snow?period_in_days=3'),
+  ]);
+  const byStation = {};
+  for (const d of daily) (byStation[d.station_code] ||= []).push(d);
+  for (const list of Object.values(byStation)) list.sort((a, b) => a.measure_date.localeCompare(b.measure_date));
+  const candidates = stations.filter((s) => byStation[s.code]?.some((d) => d.HS != null));
+
+  const out = {};
+  for (const r of RESORTS) {
+    const target = r.base + 0.65 * (r.top - r.base);
+    let best = null;
+    for (const s of candidates) {
+      const km = distKm(r, s);
+      if (km > 25) continue;
+      const cost = km + Math.abs(s.elevation - target) / 100; // 100 m of elevation ~ 1 km of distance
+      if (!best || cost < best.cost) best = { s, km, cost };
+    }
+    if (!best) continue;
+    const series = byStation[best.s.code];
+    const last = [...series].reverse().find((d) => d.HS != null);
+    const fresh = series.reduce((sum, d) => sum + (d.HN_1D || 0), 0);
+    out[r.id] = {
+      code: best.s.code, label: best.s.label, elevation: Math.round(best.s.elevation), distanceKm: Math.round(best.km * 10) / 10,
+      hs: Math.round(last.HS), fresh72: Math.round(fresh), fresh24: Math.round(series[series.length - 1]?.HN_1D || 0),
+      date: last.measure_date.slice(0, 10),
+    };
+  }
+  return out;
+}
+
+// ---------- bergfex (snow & lift report; blocked from datacenter IPs) ----------
+async function collectBergfex(errors) {
   let overview = {};
   try {
     const html = await get('https://www.bergfex.com/schweiz/schneewerte/');
     if (html) overview = parseOverview(html);
   } catch (e) {
-    result.errors.push(`overview: ${e.message}`);
+    errors.push(`bergfex overview: ${e.message}`);
   }
-
+  const out = {};
   for (const r of RESORTS) {
     if (!r.bergfex) continue;
-    const entry = { ...(overview[r.bergfex] || {}) };
     try {
       const html = await get(`https://www.bergfex.com/${r.bergfex}/schneebericht/`);
-      if (html) {
-        const d = parseDetail(html);
-        for (const [k, v] of Object.entries(d)) if (v != null) entry[k] = v; // detail wins
-      }
+      const entry = { ...(overview[r.bergfex] || {}) };
+      if (html) for (const [k, v] of Object.entries(parseDetail(html))) if (v != null) entry[k] = v; // detail wins
+      if (entry.reportedAt && !entry.reportDate) entry.reportDate = entry.reportedAt.slice(0, 10);
+      entry.url = `https://www.bergfex.com/${r.bergfex}/schneebericht/`;
+      out[r.id] = entry;
     } catch (e) {
-      result.errors.push(`${r.id}: ${e.message}`);
+      errors.push(`bergfex ${r.id}: ${e.message}`);
+      if (/403/.test(e.message) && Object.keys(out).length === 0) {
+        errors.push('bergfex refuses this machine (403); skipping the rest');
+        break;
+      }
     }
-    if (entry.reportedAt && !entry.reportDate) entry.reportDate = entry.reportedAt.slice(0, 10);
-    entry.url = `https://www.bergfex.com/${r.bergfex}/schneebericht/`;
-    result.resorts[r.id] = entry;
     await sleep(700); // be polite
+  }
+  return out;
+}
+
+async function readPrevious() {
+  try { return JSON.parse(await readFile(OUT, 'utf8')); } catch { return null; }
+}
+
+async function main() {
+  const started = Date.now();
+  const now = new Date().toISOString();
+  const prev = await readPrevious();
+  const errors = [];
+
+  const [bergfex, slf] = await Promise.all([
+    process.env.SKIP_BERGFEX ? {} : collectBergfex(errors), // SKIP_BERGFEX=1 simulates GitHub's 403
+    collectSlf().catch((e) => { errors.push(`slf: ${e.message}`); return null; }),
+  ]);
+  const bergfexOk = Object.keys(bergfex).length > 0;
+  const slfOk = slf && Object.keys(slf).length > 0;
+  if (!bergfexOk && !slfOk) {
+    console.error(`[collect] every source failed, keeping existing ${OUT}: ${errors.join('; ')}`);
+    process.exit(1);
+  }
+
+  const result = {
+    generatedAt: now,
+    sources: {
+      bergfex: bergfexOk ? { at: now, resorts: Object.keys(bergfex).length } : prev?.sources?.bergfex || (prev?.generatedAt ? { at: prev.generatedAt, carriedOver: true } : null),
+      slf: slfOk ? { at: now, resorts: Object.keys(slf).length } : prev?.sources?.slf || null,
+    },
+    resorts: {},
+    errors,
+  };
+  for (const r of RESORTS) {
+    const old = prev?.resorts?.[r.id] || {};
+    // bergfex fields: fresh if we got them, otherwise carry over the last good report
+    const { slf: _oldSlf, ...oldBergfex } = old;
+    const entry = bergfexOk ? { ...(bergfex[r.id] || {}) } : { ...oldBergfex };
+    const s = slfOk ? slf[r.id] : old.slf;
+    if (s) entry.slf = s;
+    result.resorts[r.id] = entry;
   }
 
   await mkdir(dirname(OUT), { recursive: true });
   const tmp = `${OUT}.tmp`;
   await writeFile(tmp, JSON.stringify(result, null, 1));
   await rename(tmp, OUT);
-  const n = Object.keys(result.resorts).length;
-  console.log(`[collect] ${n} resorts, ${result.errors.length} errors, ${((Date.now() - started) / 1000).toFixed(1)}s -> ${OUT}`);
-  if (result.errors.length) console.log('[collect] errors:', result.errors.join('; '));
+  const took = ((Date.now() - started) / 1000).toFixed(1);
+  console.log(`[collect] bergfex ${bergfexOk ? Object.keys(bergfex).length + ' resorts' : 'unavailable (kept previous)'}, SLF ${slfOk ? Object.keys(slf).length + ' resorts' : 'unavailable'}, ${took}s -> ${OUT}`);
+  if (errors.length) console.log('[collect] errors:', errors.join('; '));
 }
 
 main().catch((e) => { console.error('[collect] fatal', e); process.exit(1); });

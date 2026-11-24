@@ -169,8 +169,10 @@ function renderNotes(rated) {
   if (best?.s?.sunrise) notes.push(['', 'sunrise', `Daylight ${best.s.sunrise}–${best.s.sunset}${best.rep && state.conditions?.resorts?.[best.r.id]?.hours ? ` · lifts ${esc(state.conditions.resorts[best.r.id].hours)}` : ''}.`]);
   if (!state.conditions) notes.push(['bad', 'info', '<b>Snow & lift reports unavailable.</b> Run the collector (<code>npm run collect</code>) to fetch them. Ratings use weather only.']);
   else {
-    const ageH = (Date.now() - Date.parse(state.conditions.generatedAt)) / 36e5;
-    if (ageH > 8) notes.push(['warn', 'info', `Snow reports were collected <b>${Math.round(ageH)} h ago</b>.`]);
+    const src = state.conditions.sources || {};
+    const liftAt = src.bergfex?.at || state.conditions.generatedAt;
+    const ageH = (Date.now() - Date.parse(liftAt)) / 36e5;
+    if (ageH > 12) notes.push(['warn', 'info', `Lift & resort reports are <b>${ageH > 48 ? `${Math.round(ageH / 24)} days` : `${Math.round(ageH)} h`} old</b> (they refresh when your laptop runs the collector).${src.slf?.at ? ' Snow depth uses current SLF measurements.' : ''}`]);
   }
   if (settings.mode === 'train' && settings.pass !== 'ga') notes.push(['', 'train', '<b>Snow’n’Rail</b> (RailAway) bundles train + pass with ~10–20% off at many of these resorts.']);
   el.innerHTML = notes.length ? `<h3>Worth knowing</h3>${notes.map(([cls, ic, html]) => `<div class="note ${cls}">${ICONS[ic] || ICONS.info}<div>${html}</div></div>`).join('')}` : '';
@@ -240,7 +242,8 @@ function detailHtml(x) {
       <div class="fact"><div class="fact-h">${ICONS.mountain} Mountain</div>
         <div class="big">${x.r.base}–${x.r.top} m</div>
         <p>${x.r.km} km of pistes${cond?.hours ? ` · lifts ${esc(cond.hours)}` : ''}</p>
-        <p>${cond?.snowCondition && !/no info/i.test(cond.snowCondition) ? `Snow: ${esc(cond.snowCondition)}` : x.rep.note ? esc(x.rep.note) : ''}${cond?.reportDate ? ` · report ${esc(cond.reportDate)}` : ''}</p></div>
+        <p>${cond?.snowCondition && !/no info/i.test(cond.snowCondition) ? `Snow: ${esc(cond.snowCondition)}` : x.rep.note ? esc(x.rep.note) : ''}${cond?.reportDate ? ` · report ${esc(cond.reportDate)}` : ''}</p>
+        ${cond?.slf ? `<p>SLF ${esc(cond.slf.label)} ${cond.slf.elevation} m: <b>${cond.slf.hs} cm</b>, +${cond.slf.fresh72} cm / 3 days</p>` : ''}</div>
     </div>`;
 
   const links = `<div class="links">
@@ -314,7 +317,11 @@ function render() {
 function renderFreshness() {
   const parts = [];
   if (state.weather?.fetchedAt) parts.push(`Weather ${fmtTime(state.weather.fetchedAt)}`);
-  if (state.conditions?.generatedAt) parts.push(`snow reports ${fmtDay(state.conditions.generatedAt.slice(0, 10), { day: 'numeric', month: 'short' })} ${fmtTime(state.conditions.generatedAt)}`);
+  const src = state.conditions?.sources || {};
+  const stamp = (iso) => `${fmtDay(iso.slice(0, 10), { day: 'numeric', month: 'short' })} ${fmtTime(iso)}`;
+  const liftAt = src.bergfex?.at || state.conditions?.generatedAt;
+  if (liftAt) parts.push(`lift reports ${stamp(liftAt)}`);
+  if (src.slf?.at) parts.push(`SLF snow ${stamp(src.slf.at)}`);
   if (state.slf?.validFrom) parts.push(`avalanche bulletin ${fmtTime(state.slf.validFrom)}`);
   const tr = state.trains[state.day];
   if (settings.mode === 'train') parts.push(tr ? 'live SBB timetable' : 'typical train times');

@@ -1,0 +1,12 @@
+[Unit]
+Description=Refresh Firn lift & resort reports every 2 hours during ski season
+
+[Timer]
+# 06:15–20:15 every 2 hours, November–April
+OnCalendar=*-01,02,03,04,11,12-* 06,08,10,12,14,16,18,20:15:00
+# run a missed slot as soon as the laptop wakes up
+Persistent=true
+RandomizedDelaySec=5min
+
+[Install]
+WantedBy=timers.target

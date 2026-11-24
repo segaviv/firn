@@ -1,5 +1,11 @@
-# Hosts Firn on GitHub Pages and refreshes the bergfex snow report on a schedule.
+# Hosts Firn on GitHub Pages.
 # Settings → Pages → Source: "GitHub Actions".
+#
+# Data refresh:
+# - SLF measured snow depth / new snow: collected here on every run (open data).
+# - Lift & resort reports (bergfex): blocked from GitHub's IPs (HTTP 403), so the
+#   collector keeps the last report committed in data/conditions.json. Your laptop
+#   refreshes that via deploy/push-conditions.sh (cron); each push redeploys.
 name: Deploy Firn
 
 on:
@@ -7,7 +13,7 @@ on:
     branches: [main]
   workflow_dispatch:
   schedule:
-    # every 2 hours, 05:00–21:00 Swiss time (UTC+1 in winter), November–April
+    # every 2 hours 05:00–21:00 Swiss winter time, November–April (refreshes SLF snow data)
     - cron: '0 4-20/2 * 11,12,1,2,3,4 *'
 
 permissions:
@@ -20,24 +26,30 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Refresh snow data (SLF), keep last lift reports
+        continue-on-error: true
+        run: node collector/collect.mjs
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          cp -r index.html css js data icon.svg manifest.webmanifest sw.js _site/
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: _site
+
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - name: Collect snow & lift reports
-        run: node collector/collect.mjs || echo "collector failed, deploying without fresh data"
-      - name: Assemble site
-        run: |
-          mkdir -p _site
-          cp -r index.html css js data icon.svg manifest.webmanifest sw.js _site/
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: _site
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
