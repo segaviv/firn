@@ -25,10 +25,11 @@ async function get(url, tries = 3) {
     try {
       const res = await fetch(url, { headers: { 'User-Agent': UA, 'Accept-Language': 'en' }, signal: AbortSignal.timeout(20000) });
       if (res.status === 404) return null;
+      if (res.status === 403 || res.status === 429) throw Object.assign(new Error(`HTTP ${res.status}`), { final: true });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       return await res.text();
     } catch (e) {
-      if (i === tries - 1) throw e;
+      if (e.final || i === tries - 1) throw e;
       await sleep(1500 * (i + 1));
     }
   }
@@ -191,12 +192,14 @@ async function collectBergfex(errors) {
       out[r.id] = entry;
     } catch (e) {
       errors.push(`bergfex ${r.id}: ${e.message}`);
-      if (/403/.test(e.message) && Object.keys(out).length === 0) {
-        errors.push('bergfex refuses this machine (403); skipping the rest');
+      if (/403|429/.test(e.message)) {
+        // Refused (bot protection / rate limit): back off completely, the remaining
+        // resorts keep their previous report. Try again on the next scheduled run.
+        errors.push('bergfex refused the request; stopped and kept previous reports for the rest');
         break;
       }
     }
-    await sleep(700); // be polite
+    await sleep(1500); // be polite
   }
   return out;
 }
@@ -235,7 +238,8 @@ async function main() {
     const old = prev?.resorts?.[r.id] || {};
     // bergfex fields: fresh if we got them, otherwise carry over the last good report
     const { slf: _oldSlf, ...oldBergfex } = old;
-    const entry = bergfexOk ? { ...(bergfex[r.id] || {}) } : { ...oldBergfex };
+    // per resort: fresh report if fetched this run, otherwise carry over the last good one
+    const entry = bergfex[r.id] ? { ...bergfex[r.id] } : { ...oldBergfex };
     const s = slfOk ? slf[r.id] : old.slf;
     if (s) entry.slf = s;
     result.resorts[r.id] = entry;
