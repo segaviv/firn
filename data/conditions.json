@@ -1,12 +1,12 @@
 {
- "generatedAt": "2026-11-24T21:36:17.138Z",
+ "generatedAt": "2026-11-25T17:42:33.294Z",
  "sources": {
   "bergfex": {
-   "at": "2026-11-24T21:36:17.138Z",
+   "at": "2026-11-25T17:42:33.294Z",
    "resorts": 19
   },
   "slf": {
-   "at": "2026-11-24T21:36:17.138Z",
+   "at": "2026-11-25T17:42:33.294Z",
    "resorts": 20
   }
  },
@@ -17,24 +17,24 @@
    "fresh": null,
    "liftsOpen": 0,
    "liftsTotal": 17,
-   "reportedAt": "2026-11-24 22:31:20",
-   "reportedLabel": "Today, 22:31",
+   "reportedAt": "2026-11-25 18:31:36",
+   "reportedLabel": "Today, 18:31",
    "snowCondition": "powder",
    "lastSnowfall": "2026-11-23",
    "operation": "closed",
    "hours": "08:00 - 16:30",
    "pisteCondition": "no info",
-   "reportDate": "2026-11-24",
+   "reportDate": "2026-11-25",
    "url": "https://www.bergfex.com/flumserberg/schneebericht/",
    "slf": {
     "code": "AMD2",
     "label": "Bärenfall",
     "elevation": 1610,
     "distanceKm": 13.5,
-    "hs": 65,
-    "fresh72": 92,
-    "fresh24": 45,
-    "date": "2026-11-24"
+    "hs": 64,
+    "fresh72": 75,
+    "fresh24": 0,
+    "date": "2026-11-25"
    }
   },
   "hoch-ybrig": {
@@ -45,63 +45,63 @@
     "elevation": 1701,
     "distanceKm": 1.2,
     "hs": 58,
-    "fresh72": 76,
-    "fresh24": 35,
-    "date": "2026-11-24"
+    "fresh72": 63,
+    "fresh24": 0,
+    "date": "2026-11-25"
    }
   },
   "stoos": {
-   "valley": 50,
-   "mountain": 70,
-   "fresh": 40,
+   "valley": 40,
+   "mountain": 50,
+   "fresh": null,
    "liftsOpen": 1,
    "liftsTotal": 8,
-   "reportedAt": "2026-11-23 16:38:24",
-   "reportedLabel": "Yesterday, 16:38",
+   "reportedAt": "2026-11-25 07:24:39",
+   "reportedLabel": "Today, 07:24",
    "mountainElev": 1922,
    "snowCondition": "no info",
    "lastSnowfall": "2026-11-23",
    "operation": "closed",
    "hours": "09:00 - 16:00",
    "pisteCondition": "closed",
-   "reportDate": "2026-11-23",
+   "reportDate": "2026-11-25",
    "url": "https://www.bergfex.com/stoos/schneebericht/",
    "slf": {
     "code": "MUO2",
     "label": "Rupperslaui",
     "elevation": 2083,
     "distanceKm": 7.6,
-    "hs": 77,
-    "fresh72": 99,
-    "fresh24": 39,
-    "date": "2026-11-24"
+    "hs": 71,
+    "fresh72": 81,
+    "fresh24": 0,
+    "date": "2026-11-25"
    }
   },
   "engelberg": {
-   "valley": 15,
-   "mountain": 58,
+   "valley": 12,
+   "mountain": 33,
    "fresh": 26,
-   "liftsOpen": 3,
+   "liftsOpen": 2,
    "liftsTotal": 17,
-   "reportedAt": "2026-11-24 11:11:29",
-   "reportedLabel": "Today, 11:11",
+   "reportedAt": "2026-11-25 11:00:45",
+   "reportedLabel": "Today, 11:00",
    "mountainElev": 3020,
    "snowCondition": "powder",
    "lastSnowfall": "2026-11-23",
    "operation": "every day",
    "hours": "08:30 - 16:30",
    "pisteCondition": "good",
-   "reportDate": "2026-11-24",
+   "reportDate": "2026-11-25",
    "url": "https://www.bergfex.com/engelberg/schneebericht/",
    "slf": {
     "code": "TIT2",
     "label": "Titlisboden",
     "elevation": 2149,
     "distanceKm": 3.8,
-    "hs": 60,
-    "fresh72": 80,
-    "fresh24": 31,
-    "date": "2026-11-24"
+    "hs": 55,
+    "fresh72": 64,
+    "fresh24": 0,
+    "date": "2026-11-25"
    }
   },
   "laax": {
@@ -110,8 +110,8 @@
    "fresh": null,
    "liftsOpen": 0,
    "liftsTotal": 31,
-   "reportedAt": "2026-11-24 21:43:36",
-   "reportedLabel": "Today, 21:43",
+   "reportedAt": "2026-11-25 18:02:44",
+   "reportedLabel": "Today, 18:02",
    "mountainElev": 2730,
    "valleyElev": 1050,
    "snowCondition": "spring snow, partially hard",
@@ -119,17 +119,17 @@
    "operation": "closed",
    "hours": "08:30 - 17:00",
    "pisteCondition": "good",
-   "reportDate": "2026-11-24",
+   "reportDate": "2026-11-25",
    "url": "https://www.bergfex.com/laax/schneebericht/",
    "slf": {
     "code": "CMA2",
     "label": "La Fuorcla",
     "elevation": 2325,
     "distanceKm": 5.2,
-    "hs": 76,
-    "fresh72": 96,
-    "fresh24": 35,
-    "date": "2026-11-24"
+    "hs": 70,
+    "fresh72": 73,
+    "fresh24": 0,
+    "date": "2026-11-25"
    }
   },
   "davos": {
@@ -138,25 +138,25 @@
    "fresh": null,
    "liftsOpen": 5,
    "liftsTotal": 18,
-   "reportedAt": "2026-11-24 03:00:09",
-   "reportedLabel": "Today, 03:00",
+   "reportedAt": "2026-11-25 11:20:04",
+   "reportedLabel": "Today, 11:20",
    "mountainElev": 2600,
    "valleyElev": 1560,
    "snowCondition": "powder",
    "lastSnowfall": "2026-11-21",
    "operation": "every day",
    "hours": "08:15 - 16:00",
-   "reportDate": "2026-11-24",
+   "reportDate": "2026-11-25",
    "url": "https://www.bergfex.com/davos-parsenn/schneebericht/",
    "slf": {
     "code": "DAV6",
     "label": "Luksch Alp",
     "elevation": 2290,
     "distanceKm": 5,
-    "hs": 52,
-    "fresh72": 61,
-    "fresh24": 26,
-    "date": "2026-11-24"
+    "hs": 49,
+    "fresh72": 45,
+    "fresh24": 0,
+    "date": "2026-11-25"
    }
   },
   "lenzerheide": {
@@ -166,36 +166,36 @@
     "label": "Plang Bi",
     "elevation": 2495,
     "distanceKm": 3.7,
-    "hs": 36,
-    "fresh72": 41,
-    "fresh24": 13,
-    "date": "2026-11-24"
+    "hs": 35,
+    "fresh72": 28,
+    "fresh24": 2,
+    "date": "2026-11-25"
    }
   },
   "andermatt": {
    "valley": 18,
    "mountain": 90,
-   "fresh": 12,
+   "fresh": 14,
    "liftsOpen": 3,
    "liftsTotal": 21,
-   "reportedAt": "2026-11-24 06:43:41",
-   "reportedLabel": "Today, 06:43",
+   "reportedAt": "2026-11-25 06:36:44",
+   "reportedLabel": "Today, 06:36",
    "mountainElev": 2962,
    "snowCondition": "powder",
-   "lastSnowfall": "2026-11-23",
+   "lastSnowfall": "2026-11-24",
    "operation": "closed",
    "hours": "08:30 - 16:00",
-   "reportDate": "2026-11-24",
+   "reportDate": "2026-11-25",
    "url": "https://www.bergfex.com/andermatt-oberalp-sedrun/schneebericht/",
    "slf": {
     "code": "GOS3",
     "label": "Gütsch",
     "elevation": 2209,
     "distanceKm": 2.4,
-    "hs": 53,
-    "fresh72": 75,
-    "fresh24": 18,
-    "date": "2026-11-24"
+    "hs": 26,
+    "fresh72": 51,
+    "fresh24": 0,
+    "date": "2026-11-25"
    }
   },
   "pizol": {
@@ -204,24 +204,24 @@
    "fresh": null,
    "liftsOpen": null,
    "liftsTotal": null,
-   "reportedAt": "2026-11-24 04:01:58",
-   "reportedLabel": "Today, 04:01",
+   "reportedAt": "2026-11-25 17:09:30",
+   "reportedLabel": "Today, 17:09",
    "mountainElev": 2250,
    "snowCondition": "powder",
    "lastSnowfall": "2026-11-20",
    "operation": "closed",
    "pisteCondition": "end season",
-   "reportDate": "2026-11-24",
+   "reportDate": "2026-11-25",
    "url": "https://www.bergfex.com/pizol/schneebericht/",
    "slf": {
     "code": "TAM2",
     "label": "Wildsee",
     "elevation": 2468,
     "distanceKm": 8.1,
-    "hs": 65,
-    "fresh72": 71,
-    "fresh24": 34,
-    "date": "2026-11-24"
+    "hs": 62,
+    "fresh72": 65,
+    "fresh24": 0,
+    "date": "2026-11-25"
    }
   },
   "elm": {
@@ -230,8 +230,8 @@
    "fresh": null,
    "liftsOpen": 0,
    "liftsTotal": 6,
-   "reportedAt": "2026-11-24 10:07:30",
-   "reportedLabel": "Today, 10:07",
+   "reportedAt": "2026-11-25 04:05:46",
+   "reportedLabel": "Today, 04:05",
    "mountainElev": 2036,
    "valleyElev": 1020,
    "snowCondition": "no info",
@@ -239,17 +239,17 @@
    "operation": "closed",
    "hours": "08:00 - 17:00",
    "pisteCondition": "no info",
-   "reportDate": "2026-11-24",
+   "reportDate": "2026-11-25",
    "url": "https://www.bergfex.com/elm/schneebericht/",
    "slf": {
     "code": "ELM2",
     "label": "Chüebodensee",
     "elevation": 2058,
     "distanceKm": 3.4,
-    "hs": 77,
-    "fresh72": 109,
-    "fresh24": 46,
-    "date": "2026-11-24"
+    "hs": 71,
+    "fresh72": 87,
+    "fresh24": 5,
+    "date": "2026-11-25"
    }
   },
   "toggenburg": {
@@ -259,10 +259,10 @@
    "liftsOpen": null,
    "liftsTotal": null,
    "reportedAt": "2026-11-24 07:55:50",
-   "reportedLabel": "Today, 07:55",
+   "reportedLabel": "Yesterday, 07:55",
    "mountainElev": 2262,
    "snowCondition": "powder",
-   "lastSnowfall": "Tomorrow",
+   "lastSnowfall": "2026-11-25",
    "operation": "closed",
    "hours": "08:00 - 17:00",
    "pisteCondition": "closed, partially fair",
@@ -273,37 +273,37 @@
     "label": "Bärenfall",
     "elevation": 1610,
     "distanceKm": 12.6,
-    "hs": 65,
-    "fresh72": 92,
-    "fresh24": 45,
-    "date": "2026-11-24"
+    "hs": 64,
+    "fresh72": 75,
+    "fresh24": 0,
+    "date": "2026-11-25"
    }
   },
   "melchsee": {
    "valley": 145,
    "mountain": 80,
-   "fresh": 20,
+   "fresh": null,
    "liftsOpen": null,
    "liftsTotal": null,
-   "reportedAt": "2026-11-24 16:28:25",
-   "reportedLabel": "Today, 16:28",
+   "reportedAt": "2026-11-25 04:01:21",
+   "reportedLabel": "Today, 04:01",
    "mountainElev": 2225,
    "valleyElev": 1920,
    "snowCondition": "no info",
-   "lastSnowfall": "2026-11-23",
+   "lastSnowfall": "2025-03-29",
    "operation": "closed",
    "pisteCondition": "closed",
-   "reportDate": "2026-11-24",
+   "reportDate": "2026-11-25",
    "url": "https://www.bergfex.com/melchsee-frutt/schneebericht/",
    "slf": {
     "code": "TIT2",
     "label": "Titlisboden",
     "elevation": 2149,
     "distanceKm": 9.9,
-    "hs": 60,
-    "fresh72": 80,
-    "fresh24": 31,
-    "date": "2026-11-24"
+    "hs": 55,
+    "fresh72": 64,
+    "fresh24": 0,
+    "date": "2026-11-25"
    }
   },
   "hasliberg": {
@@ -313,10 +313,10 @@
     "label": "Schönbüel",
     "elevation": 1777,
     "distanceKm": 8.6,
-    "hs": 80,
-    "fresh72": 98,
-    "fresh24": 33,
-    "date": "2026-11-24"
+    "hs": 75,
+    "fresh72": 82,
+    "fresh24": 8,
+    "date": "2026-11-25"
    }
   },
   "wengen": {
@@ -326,36 +326,36 @@
     "label": "Schmidigen-Bidmeren",
     "elevation": 2111,
     "distanceKm": 5,
-    "hs": 54,
-    "fresh72": 75,
-    "fresh24": 21,
-    "date": "2026-11-24"
+    "hs": 49,
+    "fresh72": 52,
+    "fresh24": 3,
+    "date": "2026-11-25"
    }
   },
   "adelboden": {
-   "valley": 2,
+   "valley": 1,
    "mountain": 60,
    "fresh": null,
-   "liftsOpen": 3,
+   "liftsOpen": 4,
    "liftsTotal": 30,
-   "reportedAt": "2026-11-24 12:29:35",
-   "reportedLabel": "Today, 12:29",
+   "reportedAt": "2026-11-25 11:59:20",
+   "reportedLabel": "Today, 11:59",
    "mountainElev": 1964,
    "snowCondition": "no info",
    "lastSnowfall": "2026-11-23",
    "operation": "every day",
    "pisteCondition": "no info",
-   "reportDate": "2026-11-24",
+   "reportDate": "2026-11-25",
    "url": "https://www.bergfex.com/adelboden/schneebericht/",
    "slf": {
     "code": "FAE2",
     "label": "Färmel",
     "elevation": 1971,
     "distanceKm": 5.8,
-    "hs": 74,
-    "fresh72": 79,
-    "fresh24": 16,
-    "date": "2026-11-24"
+    "hs": 65,
+    "fresh72": 59,
+    "fresh24": 2,
+    "date": "2026-11-25"
    }
   },
   "obersaxen": {
@@ -364,10 +364,10 @@
     "label": "Val Miez",
     "elevation": 2191,
     "distanceKm": 6.9,
-    "hs": 88,
-    "fresh72": 119,
-    "fresh24": 41,
-    "date": "2026-11-24"
+    "hs": 74,
+    "fresh72": 79,
+    "fresh24": 2,
+    "date": "2026-11-25"
    }
   },
   "soerenberg": {
@@ -377,7 +377,7 @@
    "liftsOpen": 0,
    "liftsTotal": 16,
    "reportedAt": "2026-11-24 14:20:51",
-   "reportedLabel": "Today, 14:20",
+   "reportedLabel": "Yesterday, 14:20",
    "mountainElev": 2350,
    "snowCondition": "no info",
    "pisteCondition": "no info",
@@ -389,25 +389,25 @@
     "elevation": 1875,
     "distanceKm": 6.3,
     "hs": 69,
-    "fresh72": 91,
-    "fresh24": 36,
-    "date": "2026-11-24"
+    "fresh72": 72,
+    "fresh24": 0,
+    "date": "2026-11-25"
    }
   },
   "stmoritz": {
-   "valley": 7,
-   "mountain": 50,
-   "fresh": 14,
+   "valley": 8,
+   "mountain": 45,
+   "fresh": 5,
    "liftsOpen": null,
    "liftsTotal": null,
-   "reportedAt": "2026-11-24 08:05:05",
+   "reportedAt": "2026-11-25 08:05:06",
    "reportedLabel": "Today, 08:05",
    "valleyElev": 1822,
    "snowCondition": "powder",
-   "lastSnowfall": "2026-11-24",
+   "lastSnowfall": "2026-11-25",
    "operation": "every day",
    "hours": "07:45 - 17:00",
-   "reportDate": "2026-11-24",
+   "reportDate": "2026-11-25",
    "url": "https://www.bergfex.com/st-moritz-corviglia/schneebericht/",
    "slf": {
     "code": "BEV2",
@@ -415,9 +415,9 @@
     "elevation": 2512,
     "distanceKm": 4.7,
     "hs": 13,
-    "fresh72": 7,
+    "fresh72": 5,
     "fresh24": 0,
-    "date": "2026-11-24"
+    "date": "2026-11-25"
    }
   },
   "savognin": {
@@ -426,22 +426,22 @@
    "fresh": 6,
    "liftsOpen": null,
    "liftsTotal": null,
-   "reportedAt": "2026-11-24 19:06:00",
-   "reportedLabel": "Today, 19:06",
+   "reportedAt": "2026-11-25 17:16:04",
+   "reportedLabel": "Today, 17:16",
    "snowCondition": "no info, partially powder",
    "lastSnowfall": "2026-11-24",
    "hours": "08:30 - 16:00",
-   "reportDate": "2026-11-24",
+   "reportDate": "2026-11-25",
    "url": "https://www.bergfex.com/savognin/schneebericht/",
    "slf": {
     "code": "PMA2",
     "label": "Colms da Parsonz",
     "elevation": 2429,
     "distanceKm": 4.9,
-    "hs": 21,
-    "fresh72": 15,
-    "fresh24": 4,
-    "date": "2026-11-24"
+    "hs": 22,
+    "fresh72": 9,
+    "fresh24": 0,
+    "date": "2026-11-25"
    }
   },
   "braunwald": {
@@ -450,23 +450,24 @@
    "fresh": null,
    "liftsOpen": null,
    "liftsTotal": null,
-   "reportedAt": "2026-11-24 19:06:12",
-   "reportedLabel": "Today, 19:06",
+   "reportedAt": "2026-11-25 17:16:06",
+   "reportedLabel": "Today, 17:16",
    "mountainElev": 1901,
    "snowCondition": "no info, partially wet",
+   "operation": "closed",
    "hours": "08:30 - 16:30",
    "pisteCondition": "very good",
-   "reportDate": "2026-11-24",
+   "reportDate": "2026-11-25",
    "url": "https://www.bergfex.com/braunwald/schneebericht/",
    "slf": {
     "code": "ORT2",
     "label": "Ortstock Matt",
     "elevation": 1824,
     "distanceKm": 3.9,
-    "hs": 90,
-    "fresh72": 129,
-    "fresh24": 51,
-    "date": "2026-11-24"
+    "hs": 87,
+    "fresh72": 112,
+    "fresh24": 13,
+    "date": "2026-11-25"
    }
   }
  },
